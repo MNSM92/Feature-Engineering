@@ -2,9 +2,8 @@ import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import cross_val_score
 
+# Load data from https://archive.ics.uci.edu/ml/machine-learning-databases/concrete/compressive-concrete.csv
 df = pd.read_csv("archive/concrete.csv")
-
-
 X = df.copy()
 y = X.pop("CompressiveStrength")
 
