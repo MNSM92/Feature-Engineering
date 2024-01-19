@@ -19,6 +19,7 @@ plt.rc(
 )
 
 
+# Plot the explained variance
 def plot_variance(pca, width=8, dpi=100):
     # Create figure
     fig, axs = plt.subplots(1, 2)
@@ -40,6 +41,7 @@ def plot_variance(pca, width=8, dpi=100):
     fig.set(figwidth=8, dpi=100)
     return axs
 
+# Mutual Information Scores
 def make_mi_scores(X, y, discrete_features):
     mi_scores = mutual_info_regression(X, y, discrete_features=discrete_features)
     mi_scores = pd.Series(mi_scores, name="MI Scores", index=X.columns)
@@ -48,7 +50,6 @@ def make_mi_scores(X, y, discrete_features):
 
 
 df = pd.read_csv("archive/autos.csv")
-
 features = ["highway_mpg", "engine_size", "horsepower", "curb_weight"]
 
 X = df.copy()
@@ -65,13 +66,12 @@ X_pca = pca.fit_transform(X_scaled)
 # Convert to dataframe
 component_names = [f"PC{i+1}" for i in range(X_pca.shape[1])]
 X_pca = pd.DataFrame(X_pca, columns=component_names)
-
 X_pca.head()
 
 loadings = pd.DataFrame(
-    pca.components_.T,  # transpose the matrix of loadings
-    columns=component_names,  # so the columns are the principal components
-    index=X.columns,  # and the rows are the original features
+    pca.components_.T,
+    columns=component_names,
+    index=X.columns,
 )
 P(loadings, 'red')
 
